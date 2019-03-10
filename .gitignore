@@ -1,0 +1,4 @@
+node_modules/
+.history/
+git clone steps.txt
+package-lock.json
