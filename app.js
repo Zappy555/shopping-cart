@@ -20,11 +20,10 @@ app.listen(port, function() {
     console.log(`Server started on port ${port}`)
 });
 
-app.get('/', function(req, res) {
-        res.render("index", {
-            title: 'Home'
-        });
-    })
-    //Setting up the template engine views
+//Setting routes
+const pages = ('./routes/pages.js')
+const adminPages = ('./routes/admin_pages.js')
+
+//Setting up the template engine views
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
