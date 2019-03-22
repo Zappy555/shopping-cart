@@ -17,6 +17,7 @@ db.once('open', function() {
 
 //Initialising the express app
 const app = express();
+app.use(express.json());
 
 //Setting up the template engine views
 app.set('views', path.join(__dirname, 'views'));
@@ -24,6 +25,9 @@ app.set('view engine', 'ejs');
 
 //Setting public folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+//Set global error variable
+app.locals.errors = null;
 
 //Body-parser middleware 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -40,6 +44,7 @@ app.use(session({
 }))
 
 // Validator middleware
+app.use(expressValidator());
 
 //Express messages middleware
 app.use(require('connect-flash')());
@@ -49,8 +54,11 @@ app.use(function(req, res, next) {
 });
 
 //Setting routes
-const pages = ('./routes/pages.js')
-const adminPages = ('./routes/admin_pages.js')
+const adminPages = require('./routes/admin_pages.js');
+const pages = require('./routes/pages.js');
+
+app.use('/admin/pages', adminPages);
+app.use('/', pages)
 
 //Setting up the port 
 const port = process.env.PORT || 3000;

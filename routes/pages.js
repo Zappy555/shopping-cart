@@ -1,11 +1,9 @@
 const express = require('express');
-const router = express.Router
+const router = express.Router();
 
 router.get('/', function(req, res) {
-    res.render("index", {
-        title: 'Home'
-    });
-})
+    res.send('Admin area');
+});
 
 //exporting router
 module.exports = router;
